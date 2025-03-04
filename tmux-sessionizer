@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -ex
+
 switch_to() {
     if [[ -z $TMUX ]]; then
         tmux attach-session -t $1
@@ -9,7 +11,7 @@ switch_to() {
 }
 
 has_session() {
-    tmux list-sessions | grep -q "^$1:"
+    tmux list-sessions | grep -q "^$1"
 }
 
 hydrate() {
