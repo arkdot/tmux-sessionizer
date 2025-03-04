@@ -23,7 +23,7 @@ hydrate() {
 if [[ $# -eq 1 ]]; then
     selected=$1
 else
-    selected=$(fd -d 1 -t d ~/Projects ~/Projects/Development ~/Project/Development/arkdot | fzf)
+    selected=$(fd -d 1 -t d . ~/Projects ~/Projects/Development ~/Projects/Development/arkdot | fzf)
 fi
 
 if [[ -z $selected ]]; then
