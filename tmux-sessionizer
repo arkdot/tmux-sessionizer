@@ -31,16 +31,21 @@ if [[ -z $selected ]]; then
 fi
 
 selected_name=$(basename "$selected" | tr . _)
+
+# If selected is an existing directory, workdir is that directory, else it's the parent directory
+[[ -d $selected ]] && workdir=$selected || workdir=$(dirname ".")
+
+
 tmux_running=$(pgrep tmux)
 
 if [[ -z $TMUX ]] && [[ -z $tmux_running ]]; then
-    tmux new-session -s $selected_name -c $selected
+    tmux new-session -s $selected_name -c $workdir
     hydrate $selected_name $selected
     exit 0
 fi
 
 if ! has_session $selected_name; then
-    tmux new-session -ds $selected_name -c $selected
+    tmux new-session -ds $selected_name -c $workdir
     hydrate $selected_name $selected
 fi
 
